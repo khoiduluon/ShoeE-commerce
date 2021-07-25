@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Amount</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="item : ${cards}">
+            <form th:action="@{/card/update(itemId=${item.id}, qty=${item.qty})}" method="get">
+                <td th:text="${item.id}"></td>
+                <td th:text="${item.name}"></td>
+                <td th:text="${item.price}"></td>
+                <td><input type="text" th:value="${item.qty}" th:onblur="this.form.submit()"></td>
+                <td th:text="${item.price * item.qty}"></td>             
+                <th><a th:href="@{/card/remove(itemId=${item.id})}">Remove</a></th>
+                <th><a th:href="@{/card/update(itemId=${item.id}, qty=${item.qty})}">Update</a></th>
+            </form>
+            </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/card/clear}">Clear</a>
+                    <a th:href="@{/list/item}">Add more</a>
+</body>
+</html>
